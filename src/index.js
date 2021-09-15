@@ -6,6 +6,19 @@ async function getWeatherData(location) {
     { mode: 'cors' },
   );
   const responseObj = await response.json();
-  console.log(responseObj);
+  processWeatherData(responseObj);
+}
+function processWeatherData(responseObj) {
+  const weatherInfo = {};
+  weatherInfo.city = responseObj.name;
+  weatherInfo.country = responseObj.sys.country;
+  weatherInfo.feelsLike = responseObj.main.feels_like;
+  weatherInfo.humidity = responseObj.main.humidity;
+  weatherInfo.temp = responseObj.main.temp;
+  weatherInfo.sunrise = responseObj.sys.sunrise;
+  weatherInfo.sunset = responseObj.sys.sunset;
+  weatherInfo.description = responseObj.weather[0].description;
+  weatherInfo.main = responseObj.weather[0].main;
+  console.log(weatherInfo);
 }
 getWeatherData('Ilorin');
