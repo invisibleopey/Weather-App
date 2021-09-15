@@ -1,12 +1,19 @@
+/* eslint-disable operator-linebreak */
 import 'regenerator-runtime';
 // A function that hits the API and returns data
 async function getWeatherData(location) {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=b25577cea775f772e6801248daec3619`,
-    { mode: 'cors' },
-  );
-  const responseObj = await response.json();
-  processWeatherData(responseObj);
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=b25577cea775f772e6801248daec3619`,
+      { mode: 'cors' },
+    );
+    const responseObj = await response.json();
+    processWeatherData(responseObj);
+    document.querySelector('.error-message').textContent = '';
+  } catch (error) {
+    document.querySelector('.error-message').textContent =
+      'Location could not be found, please try another City';
+  }
 }
 function processWeatherData(responseObj) {
   const weatherInfo = {};
