@@ -21,4 +21,12 @@ function processWeatherData(responseObj) {
   weatherInfo.main = responseObj.weather[0].main;
   console.log(weatherInfo);
 }
+const searchForm = document.querySelector('#search-form');
+const searchTextField = document.querySelector('#search-text-field');
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const location = searchTextField.value;
+  getWeatherData(location);
+  searchForm.reset();
+});
 getWeatherData('Ilorin');
