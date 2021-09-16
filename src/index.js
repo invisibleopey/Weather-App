@@ -12,8 +12,7 @@ async function getWeatherData(location) {
     console.log(responseObj);
     document.querySelector('.error-message').textContent = '';
   } catch (error) {
-    document.querySelector('.error-message').textContent =
-      'Location could not be found, please try another City';
+    document.querySelector('.error-message').textContent = 'Location not found, try another City';
   }
 }
 function processWeatherData(responseObj) {
@@ -46,7 +45,7 @@ function removeAllChildNodes(parent) {
   }
 }
 const renderWeatherInfo = function renderWeatherInfo(weatherInfo) {
-  const container = document.querySelector('.output-section');
+  const container = document.querySelector('.output-section .centered');
   removeAllChildNodes(container);
   const cityName = document.createElement('div');
   cityName.textContent = `${weatherInfo.city},`;
