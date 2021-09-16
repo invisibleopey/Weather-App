@@ -8,14 +8,27 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <section class="output-section"></section>
-    <section class="input-section">
-      <form action="#" id="search-form">
-        <input type="text" name="search-text-field" id="search-text-field" />
-        <input type="submit" value="Search" />
-        <div class="error-message"></div>
-      </form>
-    </section>
+    <main>
+      <section class="output-section">
+        <div class="centered"></div>
+      </section>
+      <section class="input-section">
+        <div class="centered">
+          <form action="#" id="search-form">
+            <div class="search-box">
+              <input type="text" name="search-text-field" id="search-text-field" />
+              <div class="error-message"></div>
+            </div>
+            <input type="submit" value="Search" />
+          </form>
+          <div class="error-message"></div>
+          <div class="toggle-units">
+            <span id="metric">C</span>
+            <span id="imperial">F</span>
+          </div>
+        </div>
+      </section>
+    </main>
     <script src="main.js"></script>
   </body>
 </html>
