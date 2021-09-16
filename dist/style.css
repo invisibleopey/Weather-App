@@ -36,6 +36,10 @@ section {
   text-align: center;
   margin: 5px;
 }
+.input-section h2,
+.input-section h4 {
+  margin: 0.3em;
+}
 .error-message {
   color: rgba(255, 0, 0, 1);
   margin: 0;
@@ -91,6 +95,10 @@ section {
   font-size: 12px;
   font-weight: bold;
   text-shadow: none;
+}
+.input-section span {
+  display: block;
+  font-size: 0.8em;
 }
 .tempDiv {
   font-size: 1.5em;
