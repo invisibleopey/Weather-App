@@ -25,6 +25,7 @@ function processWeatherData(responseObj) {
   weatherInfo.temp = responseObj.main.temp;
   weatherInfo.description = responseObj.weather[0].description;
   weatherInfo.main = responseObj.weather[0].main;
+  weatherInfo.icon = responseObj.weather[0].icon;
   renderWeatherInfo(weatherInfo);
   console.log(weatherInfo);
 }
@@ -54,7 +55,12 @@ const renderWeatherInfo = function renderWeatherInfo(weatherInfo) {
   const todaysDate = document.createElement('div');
   todaysDate.textContent = new Date().toLocaleDateString();
   const temp = document.createElement('div');
+  temp.classList.add('tempDiv');
   temp.textContent = `${weatherInfo.temp}°`;
+  const icon = new Image();
+  icon.classList.add('weather-icon');
+  icon.src = `http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`;
+  temp.appendChild(icon);
   const weatherDiscription = document.createElement('div');
   weatherDiscription.textContent = weatherInfo.description;
   const feelsLike = document.createElement('div');
