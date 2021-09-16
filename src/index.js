@@ -4,11 +4,12 @@ import 'regenerator-runtime';
 async function getWeatherData(location) {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=b25577cea775f772e6801248daec3619`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=b25577cea775f772e6801248daec3619`,
       { mode: 'cors' },
     );
     const responseObj = await response.json();
     processWeatherData(responseObj);
+    console.log(responseObj);
     document.querySelector('.error-message').textContent = '';
   } catch (error) {
     document.querySelector('.error-message').textContent =
