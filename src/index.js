@@ -26,7 +26,31 @@ function processWeatherData(responseObj) {
   weatherInfo.main = responseObj.weather[0].main;
   weatherInfo.icon = responseObj.weather[0].icon;
   renderWeatherInfo(weatherInfo);
+  changeBackgroundPicture(weatherInfo.main);
   console.log(weatherInfo);
+}
+function changeBackgroundPicture(main) {
+  switch (main) {
+    case 'Clear':
+      document.body.style.backgroundImage = 'url("clear.jpg")';
+      break;
+    case 'Clouds':
+      document.body.style.backgroundImage = 'url("cloudy.jpg")';
+      break;
+    case 'Rain':
+    case 'Drizzle':
+    case 'Mist':
+      document.body.style.backgroundImage = 'url("rain.jpg")';
+      break;
+    case 'Thunderstorm':
+      document.body.style.backgroundImage = 'url("thunderstorm.jpg")';
+      break;
+    case 'Snow':
+      document.body.style.backgroundImage = 'url("snow.jpg")';
+      break;
+    default:
+      document.body.style.backgroundImage = 'url("main-background.jpg")';
+  }
 }
 const searchForm = document.querySelector('#search-form');
 const searchTextField = document.querySelector('#search-text-field');
@@ -38,6 +62,9 @@ searchForm.addEventListener('submit', (event) => {
 });
 getWeatherData('Ilorin');
 
+// TODO: Toggle the Temp from Celcius to Fehreheit
+const tempCheckBox = document.querySelector('.temp-checkbox');
+
 // Helper function to remove all contents of container
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -47,23 +74,24 @@ function removeAllChildNodes(parent) {
 const renderWeatherInfo = function renderWeatherInfo(weatherInfo) {
   const container = document.querySelector('.output-section .centered');
   removeAllChildNodes(container);
-  const cityName = document.createElement('div');
+  const cityName = document.createElement('h1');
   cityName.textContent = `${weatherInfo.city},`;
-  const countryCode = document.createElement('div');
+  const countryCode = document.createElement('h1');
   countryCode.textContent = weatherInfo.country;
   const todaysDate = document.createElement('div');
   todaysDate.textContent = new Date().toLocaleDateString();
   const temp = document.createElement('div');
   temp.classList.add('tempDiv');
-  temp.textContent = `${weatherInfo.temp}°`;
+  temp.textContent = `${weatherInfo.temp}°C`;
   const icon = new Image();
   icon.classList.add('weather-icon');
   icon.src = `http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`;
   temp.appendChild(icon);
-  const weatherDiscription = document.createElement('div');
-  weatherDiscription.textContent = weatherInfo.description;
+  const weatherDescription = document.createElement('div');
+  weatherDescription.textContent = weatherInfo.description;
+  weatherDescription.classList.add('weather-description');
   const feelsLike = document.createElement('div');
-  feelsLike.textContent = `Feels like: ${weatherInfo.feelsLike}°`;
+  feelsLike.textContent = `Feels like: ${weatherInfo.feelsLike}°C`;
   const humidity = document.createElement('div');
   humidity.textContent = `Humidity levels: ${weatherInfo.humidity}%`;
   container.append(
@@ -71,7 +99,7 @@ const renderWeatherInfo = function renderWeatherInfo(weatherInfo) {
     countryCode,
     todaysDate,
     temp,
-    weatherDiscription,
+    weatherDescription,
     feelsLike,
     humidity,
   );
