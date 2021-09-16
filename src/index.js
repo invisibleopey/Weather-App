@@ -22,10 +22,9 @@ function processWeatherData(responseObj) {
   weatherInfo.feelsLike = responseObj.main.feels_like;
   weatherInfo.humidity = responseObj.main.humidity;
   weatherInfo.temp = responseObj.main.temp;
-  weatherInfo.sunrise = responseObj.sys.sunrise;
-  weatherInfo.sunset = responseObj.sys.sunset;
   weatherInfo.description = responseObj.weather[0].description;
   weatherInfo.main = responseObj.weather[0].main;
+  renderWeatherInfo(weatherInfo);
   console.log(weatherInfo);
 }
 const searchForm = document.querySelector('#search-form');
@@ -37,3 +36,37 @@ searchForm.addEventListener('submit', (event) => {
   searchForm.reset();
 });
 getWeatherData('Ilorin');
+
+// Helper function to remove all contents of container
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+const renderWeatherInfo = function renderWeatherInfo(weatherInfo) {
+  const container = document.querySelector('.output-section');
+  removeAllChildNodes(container);
+  const cityName = document.createElement('div');
+  cityName.textContent = `${weatherInfo.city},`;
+  const countryCode = document.createElement('div');
+  countryCode.textContent = weatherInfo.country;
+  const todaysDate = document.createElement('div');
+  todaysDate.textContent = new Date().toLocaleDateString();
+  const temp = document.createElement('div');
+  temp.textContent = `${weatherInfo.temp}°`;
+  const weatherDiscription = document.createElement('div');
+  weatherDiscription.textContent = weatherInfo.description;
+  const feelsLike = document.createElement('div');
+  feelsLike.textContent = `Feels like: ${weatherInfo.feelsLike}°`;
+  const humidity = document.createElement('div');
+  humidity.textContent = `Humidity levels: ${weatherInfo.humidity}%`;
+  container.append(
+    cityName,
+    countryCode,
+    todaysDate,
+    temp,
+    weatherDiscription,
+    feelsLike,
+    humidity,
+  );
+};
