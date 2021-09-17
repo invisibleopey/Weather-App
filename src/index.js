@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable operator-linebreak */
 import 'regenerator-runtime';
 // A function that hits the API and returns data
@@ -62,9 +63,13 @@ searchForm.addEventListener('submit', (event) => {
 });
 getWeatherData('Ilorin');
 
-// TODO: Toggle the Temp from Celcius to Fehreheit
-const tempCheckBox = document.querySelector('.temp-checkbox');
-
+// Convert Temperature in celsius to farenheit
+function toFahrenheit(celsius) {
+  // eslint-disable-next-line no-param-reassign
+  celsius = parseFloat(celsius);
+  const fahrenheit = celsius * (9 / 5) + 32;
+  return fahrenheit.toFixed(2);
+}
 // Helper function to remove all contents of container
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -103,4 +108,23 @@ const renderWeatherInfo = function renderWeatherInfo(weatherInfo) {
     feelsLike,
     humidity,
   );
+  // Toggle the Temp from Celcius to Fehreheit
+  const toggleTemp = document.querySelector('.temp-checkbox');
+  toggleTemp.addEventListener('change', () => {
+    if (toggleTemp.checked) {
+      setTimeout(() => {
+        const tempInFahrenheit = toFahrenheit(weatherInfo.temp);
+        const feelsLikeInFahrenheit = toFahrenheit(weatherInfo.feelsLike);
+        temp.textContent = `${tempInFahrenheit}°F`;
+        feelsLike.textContent = `Feels like: ${feelsLikeInFahrenheit}°F`;
+        temp.appendChild(icon);
+      }, 100);
+    } else {
+      setTimeout(() => {
+        temp.textContent = `${weatherInfo.temp}°C`;
+        feelsLike.textContent = `Feels like: ${weatherInfo.feelsLike}°C`;
+        temp.appendChild(icon);
+      }, 100);
+    }
+  });
 };
