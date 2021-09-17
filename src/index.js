@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable operator-linebreak */
 import 'regenerator-runtime';
+
 // A function that hits the API and returns data
 async function getWeatherData(location) {
   try {
@@ -10,7 +11,6 @@ async function getWeatherData(location) {
     );
     const responseObj = await response.json();
     processWeatherData(responseObj);
-    console.log(responseObj);
     document.querySelector('.error-message').textContent = '';
   } catch (error) {
     document.querySelector('.error-message').textContent = 'Location not found, try another City';
@@ -28,7 +28,6 @@ function processWeatherData(responseObj) {
   weatherInfo.icon = responseObj.weather[0].icon;
   renderWeatherInfo(weatherInfo);
   changeBackgroundPicture(weatherInfo.main);
-  console.log(weatherInfo);
 }
 function changeBackgroundPicture(main) {
   switch (main) {
@@ -53,6 +52,7 @@ function changeBackgroundPicture(main) {
       document.body.style.backgroundImage = 'url("main-background.jpg")';
   }
 }
+// Event handler for form submission
 const searchForm = document.querySelector('#search-form');
 const searchTextField = document.querySelector('#search-text-field');
 searchForm.addEventListener('submit', (event) => {
@@ -61,16 +61,16 @@ searchForm.addEventListener('submit', (event) => {
   getWeatherData(location);
   searchForm.reset();
 });
+
+// Set default City to Ilorin, Nigeria
 getWeatherData('Ilorin');
 
-// Convert Temperature in celsius to farenheit
+// Convert Temperature from Celsius to Farenheit
 function toFahrenheit(celsius) {
-  // eslint-disable-next-line no-param-reassign
-  celsius = parseFloat(celsius);
-  const fahrenheit = celsius * (9 / 5) + 32;
+  const fahrenheit = parseFloat(celsius) * (9 / 5) + 32;
   return fahrenheit.toFixed(2);
 }
-// Helper function to remove all contents of container
+// Helper function to remove all contents of parent container
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
